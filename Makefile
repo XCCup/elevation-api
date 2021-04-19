@@ -7,6 +7,12 @@ build:
 run:
 	docker run --rm -it --volume "$(shell pwd)/data:/app/data:ro" -p 5000:5000 opentopodata:$(VERSION)
 
+build-production:
+	docker build --tag opentopodata --file docker/Dockerfile .
+
+production:
+	docker-compose --file docker/docker-compose.yaml -p "xccup-elevation-api" up -d
+
 daemon:
 	docker run --rm -itd --volume "$(shell pwd)/data:/app/data:ro" -p 5000:5000 opentopodata:$(VERSION) 
 
